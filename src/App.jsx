@@ -11,6 +11,11 @@ class App extends Component {
     this.setState({ searchterm: e.target.value });
   };
 
+  onFormSubmit = (e) => {
+    e.preventDefault()
+    console.log(this.state.searchterm)
+  };
+
   render() {
     return (
       <div className="App">
@@ -19,6 +24,7 @@ class App extends Component {
             size="lg"
             searchterm={this.state.searchterm}
             onFormChange={this.onFormChange}
+            onFormSubmit={this.onFormSubmit}
           />
         </Container>
       </div>

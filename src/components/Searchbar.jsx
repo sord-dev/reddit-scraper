@@ -3,11 +3,15 @@ import { IconButton, useColorMode, Stack, Input } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
 function Searchbar(props) {
-  const { size, onFormChange, searchterm } = props;
+  const { size, onFormChange, onFormSubmit, searchterm } = props;
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <Stack className="searchbar" direction="row-reverse">
+    <form
+      onSubmit={(e) => onFormSubmit(e)}
+      className="searchbar"
+      style={{ display: "flex", flexDirection: "row-reverse", gap: "1em" }}
+    >
       <IconButton
         size={size}
         className="color-switch"
@@ -27,7 +31,7 @@ function Searchbar(props) {
         onChange={(e) => onFormChange(e)}
         value={searchterm}
       />
-    </Stack>
+    </form>
   );
 }
 
