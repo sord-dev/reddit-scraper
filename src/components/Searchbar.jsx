@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { IconButton, useColorMode, Input } from "@chakra-ui/react";
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 
 function Searchbar(props) {
   const { size, onFormSubmit } = props;
   const { colorMode, toggleColorMode } = useColorMode();
-  const [searchterm, setSearchterm] = useState('');
+  const [searchterm, setSearchterm] = useState("");
 
   const onFormChange = (e) => {
     setSearchterm(e.target.value);
@@ -29,6 +29,8 @@ function Searchbar(props) {
           )
         }
       />
+
+      <IconButton size={size} icon={<SearchIcon />} type='submit' />
 
       <Input
         size={size}
