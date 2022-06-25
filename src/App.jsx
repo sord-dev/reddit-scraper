@@ -3,17 +3,11 @@ import { Container } from "@chakra-ui/react";
 import Searchbar from "./components/Searchbar";
 
 class App extends Component {
-  state = {
-    searchterm: "",
-  };
 
-  onFormChange = (e) => {
-    this.setState({ searchterm: e.target.value });
-  };
 
-  onFormSubmit = (e) => {
+  onFormSubmit = (e, searchterm) => {
     e.preventDefault()
-    console.log(this.state.searchterm)
+    console.log(searchterm)
   };
 
   render() {
@@ -22,10 +16,9 @@ class App extends Component {
         <Container maxW="container.lg" mt="10px">
           <Searchbar
             size="lg"
-            searchterm={this.state.searchterm}
-            onFormChange={this.onFormChange}
             onFormSubmit={this.onFormSubmit}
           />
+    
         </Container>
       </div>
     );
