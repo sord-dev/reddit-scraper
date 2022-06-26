@@ -2,8 +2,8 @@ import { nanoid } from "nanoid";
 import React, { Component } from "react";
 import { CircularProgress, Container, Grid } from "@chakra-ui/react";
 import Searchbar from "./components/Searchbar";
-import axios from "axios";
-import CustomImage from "./components/Image";
+import axios from "./api/meme-api";
+import ImageList from "./components/ImageList";
 
 class App extends Component {
   state = {
@@ -19,14 +19,14 @@ class App extends Component {
 
     const options = {
       method: "GET",
-      url: `https://meme-api.herokuapp.com/gimme/${searchterm}/25`,
+      url: `/gimme/${searchterm}/25`,
     };
 
     axios
       .request(options)
       .then((response) => {
         this.setState({ images: null });
-        this.setState({ images: response.data.memes, loading: false });
+        this.setState({ images: response.data.memes.filter((img) => img.nsfw !== true), loading: false });
         console.log(response);
       })
       .catch((error) => {
@@ -36,16 +36,11 @@ class App extends Component {
   };
 
   componentDidMount() {
-    const options = {
-      method: "GET",
-      url: "https://meme-api.herokuapp.com/gimme/25",
-    };
-
     axios
-      .request(options)
+      .get("/gimme/25")
       .then((response) => {
-        this.setState({ images: response.data.memes, loading: false });
-        console.log(response);
+        this.setState({ images: response.data.memes.filter((img) => img.nsfw !== true), loading: false });
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error.message);
@@ -83,19 +78,17 @@ class App extends Component {
             )}
 
             {this.state.images &&
-              this.state.images
-                .filter((img) => img.nsfw !== true)
-                .map((img) => {
-                  return (
-                    <CustomImage
-                      key={nanoid()}
-                      title={img.title}
-                      thumbnail={img.url}
-                      alt={`${img.author}'s image`}
-                      src={img.postLink}
-                    />
-                  );
-                })}
+              this.state.images.map((img) => {
+                return (
+                  <ImageList
+                    key={nanoid()}
+                    title={img.title}
+                    url={img.url}
+                    alt={`${img.author}'s image`}
+                    src={img.postLink}
+                  />
+                );
+              })}
           </Grid>
         </Container>
       </div>

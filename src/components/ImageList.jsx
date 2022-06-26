@@ -6,7 +6,7 @@ import {
 import HoverImage from "./HoverImage";
 import ImageModal from "./ImageModal";
 
-const CustomImage = (props) => {
+const ImageList = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -15,14 +15,14 @@ const CustomImage = (props) => {
         onClick={onOpen}
         alt={props.title}
         title={props.title}
-        src={props.thumbnail}
+        src={props.url}
       />
 
       <ImageModal isOpen={isOpen} onClose={onClose} src={props.src} title={props.title}>
-        <Image alt={props.title} src={props.thumbnail} />
+        <a href={props.url}><Image alt={props.title} src={props.url} /> </a>
       </ImageModal>
     </>
   );
 };
 
-export default CustomImage;
+export default ImageList;
