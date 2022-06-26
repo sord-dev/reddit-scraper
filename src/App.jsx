@@ -1,31 +1,27 @@
-import { nanoid  } from 'nanoid';
+import { nanoid } from "nanoid";
 import React, { Component } from "react";
 import { CircularProgress, Container, Grid } from "@chakra-ui/react";
 import Searchbar from "./components/Searchbar";
 import axios from "axios";
 import CustomImage from "./components/Image";
 
-
-
-
 class App extends Component {
   state = {
     phrase: "",
     images: null,
-    loading: true
+    loading: true,
   };
 
   onFormSubmit = (e, searchterm) => {
     e.preventDefault();
-    this.setState({loading: true})
     console.log(`search phrase: ${searchterm}`);
-    this.setState({ phrase: searchterm });
+    this.setState({ phrase: searchterm, loading: true });
 
     const options = {
       method: "GET",
       url: `https://meme-api.herokuapp.com/gimme/${searchterm}/25`,
     };
-    
+
     axios
       .request(options)
       .then((response) => {
@@ -61,24 +57,45 @@ class App extends Component {
     return (
       <div className="App">
         <Container maxW="container.lg" mt="10px">
-          <Searchbar size="lg" onFormSubmit={this.onFormSubmit} placeholder={'Search any subreddit!'} />
+          <Searchbar
+            size="lg"
+            onFormSubmit={this.onFormSubmit}
+            placeholder={"Search any subreddit!"}
+          />
 
-          <Grid templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)' , 'repeat(3, 1fr)']} gap={7} mt='10px' p={2} justifyContent='center' alignItems='center'>
-
-          {this.state.loading && <CircularProgress sx={{ position: 'absolute', top: '3em', right: '50%'}} isIndeterminate />}
+          <Grid
+            templateColumns={[
+              "repeat(1, 1fr)",
+              "repeat(2, 1fr)",
+              "repeat(3, 1fr)",
+            ]}
+            gap={7}
+            mt="10px"
+            p={2}
+            justifyContent="center"
+            alignItems="center"
+          >
+            {this.state.loading && (
+              <CircularProgress
+                sx={{ position: "absolute", top: "3em", right: "50%" }}
+                isIndeterminate
+              />
+            )}
 
             {this.state.images &&
-              this.state.images.map((img) => {
-                return (
-                  <CustomImage
-                   key={nanoid()}
-                    title={img.title}
-                    thumbnail={img.url}
-                    alt={`${img.author}'s image`}
-                    src={img.postLink}
-                  />
-                );
-              })}
+              this.state.images
+                .filter((img) => img.nsfw !== true)
+                .map((img) => {
+                  return (
+                    <CustomImage
+                      key={nanoid()}
+                      title={img.title}
+                      thumbnail={img.url}
+                      alt={`${img.author}'s image`}
+                      src={img.postLink}
+                    />
+                  );
+                })}
           </Grid>
         </Container>
       </div>
