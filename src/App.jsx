@@ -1,8 +1,10 @@
+import { nanoid  } from 'nanoid';
 import React, { Component } from "react";
-import { Container, Grid, GridItem } from "@chakra-ui/react";
+import { Container, Grid } from "@chakra-ui/react";
 import Searchbar from "./components/Searchbar";
 import axios from "axios";
 import CustomImage from "./components/Image";
+
 
 
 
@@ -29,8 +31,8 @@ class App extends Component {
         this.setState({ images: response.data.memes });
         console.log(response);
       })
-      .catch(function (error) {
-        console.error(error);
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -46,8 +48,8 @@ class App extends Component {
         this.setState({ images: response.data.memes });
         console.log(response);
       })
-      .catch(function (error) {
-        console.error(error);
+      .catch((error) => {
+        console.log(error.message);
       });
   }
 
@@ -57,11 +59,13 @@ class App extends Component {
         <Container maxW="container.lg" mt="10px">
           <Searchbar size="lg" onFormSubmit={this.onFormSubmit} />
 
-          <Grid templateColumns={['repeat(1, 1fr)', 'repeat(3, 1fr)' , 'repeat(3, 1fr)']} gap={7} mt='10px' p={2} justifyContent='center' alignItems='center'>
+          <Grid templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)' , 'repeat(3, 1fr)']} gap={7} mt='10px' p={2} justifyContent='center' alignItems='center'>
             {this.state.images &&
               this.state.images.map((img) => {
                 return (
                   <CustomImage
+                   key={nanoid()}
+                    title={img.title}
                     thumbnail={img.url}
                     alt={`${img.author}'s image`}
                     src={img.postLink}
