@@ -1,6 +1,6 @@
 import { nanoid  } from 'nanoid';
 import React, { Component } from "react";
-import { Container, Grid } from "@chakra-ui/react";
+import { CircularProgress, Container, Grid } from "@chakra-ui/react";
 import Searchbar from "./components/Searchbar";
 import axios from "axios";
 import CustomImage from "./components/Image";
@@ -12,10 +12,12 @@ class App extends Component {
   state = {
     phrase: "",
     images: null,
+    loading: true
   };
 
   onFormSubmit = (e, searchterm) => {
     e.preventDefault();
+    this.setState({loading: true})
     console.log(`search phrase: ${searchterm}`);
     this.setState({ phrase: searchterm });
 
@@ -28,11 +30,12 @@ class App extends Component {
       .request(options)
       .then((response) => {
         this.setState({ images: null });
-        this.setState({ images: response.data.memes });
+        this.setState({ images: response.data.memes, loading: false });
         console.log(response);
       })
       .catch((error) => {
         console.log(error);
+        this.setState({ loading: false });
       });
   };
 
@@ -45,11 +48,12 @@ class App extends Component {
     axios
       .request(options)
       .then((response) => {
-        this.setState({ images: response.data.memes });
+        this.setState({ images: response.data.memes, loading: false });
         console.log(response);
       })
       .catch((error) => {
         console.log(error.message);
+        this.setState({ loading: false });
       });
   }
 
@@ -57,9 +61,12 @@ class App extends Component {
     return (
       <div className="App">
         <Container maxW="container.lg" mt="10px">
-          <Searchbar size="lg" onFormSubmit={this.onFormSubmit} />
+          <Searchbar size="lg" onFormSubmit={this.onFormSubmit} placeholder={'Search any subreddit!'} />
 
           <Grid templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)' , 'repeat(3, 1fr)']} gap={7} mt='10px' p={2} justifyContent='center' alignItems='center'>
+
+          {this.state.loading && <CircularProgress sx={{ position: 'absolute', top: '3em', right: '50%'}} isIndeterminate />}
+
             {this.state.images &&
               this.state.images.map((img) => {
                 return (

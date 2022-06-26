@@ -34,7 +34,7 @@ function Searchbar(props) {
 
       <Input
         size={size}
-        placeholder="Search anything..."
+        placeholder={props.placeholder}
         onChange={(e) => onFormChange(e)}
         value={searchterm}
       />
