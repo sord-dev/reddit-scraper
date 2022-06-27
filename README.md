@@ -1,5 +1,5 @@
 # reddit-scraper
-An application that scrapes Reddit for images using meme-api. Built with React, Chakra UI, nano-id and framer-motion. 
+An application that scrapes Reddit for images using this (meme-api)[https://github.com/D3vd/Meme_Api]. Built with React, Chakra UI, nano-id and framer-motion. 
 
 
 ## Architecture
