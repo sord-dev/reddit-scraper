@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import React, { Component } from "react";
 import { CircularProgress, Container, Grid } from "@chakra-ui/react";
 import Searchbar from "./components/Searchbar";
@@ -26,7 +25,10 @@ class App extends Component {
       .request(options)
       .then((response) => {
         this.setState({ images: null });
-        this.setState({ images: response.data.memes.filter((img) => img.nsfw !== true), loading: false });
+        this.setState({
+          images: response.data.memes.filter((img) => img.nsfw !== true),
+          loading: false,
+        });
         console.log(response);
       })
       .catch((error) => {
@@ -39,7 +41,10 @@ class App extends Component {
     axios
       .get("/gimme/25")
       .then((response) => {
-        this.setState({ images: response.data.memes.filter((img) => img.nsfw !== true), loading: false });
+        this.setState({
+          images: response.data.memes.filter((img) => img.nsfw !== true),
+          loading: false,
+        });
         console.log(response.data);
       })
       .catch((error) => {
@@ -58,38 +63,12 @@ class App extends Component {
             placeholder={"Search any subreddit!"}
           />
 
-          <Grid
-            templateColumns={[
-              "repeat(1, 1fr)",
-              "repeat(2, 1fr)",
-              "repeat(3, 1fr)",
-            ]}
-            gap={7}
-            mt="10px"
-            p={2}
-            justifyContent="center"
-            alignItems="center"
-          >
-            {this.state.loading && (
-              <CircularProgress
-                sx={{ position: "absolute", top: "3em", right: "50%" }}
-                isIndeterminate
-              />
-            )}
-
-            {this.state.images &&
-              this.state.images.map((img) => {
-                return (
-                  <ImageList
-                    key={nanoid()}
-                    title={img.title}
-                    url={img.url}
-                    alt={`${img.author}'s image`}
-                    src={img.postLink}
-                  />
-                );
-              })}
-          </Grid>
+          {this.state.images && (
+            <ImageList
+              images={this.state.images}
+              loading={this.state.loading}
+            />
+          )}
         </Container>
       </div>
     );
