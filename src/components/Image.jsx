@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import HoverImage from "./HoverImage";
 import ImageModal from "./ImageModal";
-import { Image, useDisclosure } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 
 function CustomImage(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();

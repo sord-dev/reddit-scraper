@@ -43,7 +43,7 @@ function Searchbar(props) {
 }
 
 Searchbar.defaultProps = {
-  size: "md",
+  size: "lg",
 };
 
 export default Searchbar;
