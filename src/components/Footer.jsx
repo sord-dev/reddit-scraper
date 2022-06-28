@@ -1,8 +1,15 @@
+import { Text } from '@chakra-ui/react'
 import React from 'react'
 
 function Footer() {
   return (
-    <div>Footer</div>
+    <div className='footer'>
+
+    <Text fontFamily={'Dhurjati'}>
+        Made by Stefan Syrett
+    </Text>
+    
+    </div>
   )
 }
 

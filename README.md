@@ -16,9 +16,10 @@ These are the technologies I used to create this app.
  - Search by Sub-Reddit
  - Light and Dark Mode
 
-Potential Future Features
+**Potential Future Features**
 
  - Info Widget
+ - Better Height formatting on images
 
 ## Lessons Learned
 

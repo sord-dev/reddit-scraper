@@ -40,7 +40,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <>
         <Container maxW="container.lg" mt="10px">
           <Searchbar
             size="lg"
@@ -55,9 +55,9 @@ class App extends Component {
             />
           )}
 
-          <Footer />
         </Container>
-      </div>
+          <Footer />
+      </>
     );
   }
 }
