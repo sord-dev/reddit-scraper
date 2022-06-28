@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { CircularProgress, Container, Grid } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import Searchbar from "./components/Searchbar";
 import axios from "./api/meme-api";
 import ImageList from "./components/ImageList";
@@ -36,7 +36,7 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .get("/gimme/25")
+      .get("/gimme/wholesomememes/25")
       .then((response) => {
         this.setState({
           images: response.data.memes.filter((img) => img.nsfw !== true),
