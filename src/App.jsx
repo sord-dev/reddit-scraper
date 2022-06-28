@@ -32,26 +32,6 @@ class App extends Component {
       console.log(error);
       this.setState({ loading: false });
     }
-
-    const options = {
-      method: "GET",
-      url: `/gimme/${searchterm}/25`,
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ images: null });
-        this.setState({
-          images: response.data.memes.filter((img) => img.nsfw !== true),
-          loading: false,
-        });
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-        this.setState({ loading: false });
-      });
   };
 
   componentDidMount() {
