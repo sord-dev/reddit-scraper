@@ -12,7 +12,7 @@ class App extends Component {
   };
 
   onFormSubmit = async (e, searchterm) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     console.log(`search phrase: ${searchterm}`);
     this.setState({ phrase: searchterm, loading: true });
 
@@ -27,7 +27,6 @@ class App extends Component {
         images: res.data.memes.filter((img) => img.nsfw !== true),
         loading: false,
       });
-      console.log(response);
     } catch (error) {
       console.log(error);
       this.setState({ loading: false });
@@ -35,19 +34,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    axios
-      .get("/gimme/wholesomememes/25")
-      .then((response) => {
-        this.setState({
-          images: response.data.memes.filter((img) => img.nsfw !== true),
-          loading: false,
-        });
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error.message);
-        this.setState({ loading: false });
-      });
+    this.onFormSubmit(null, 'wholesomememes')
   }
 
   render() {
