@@ -3,6 +3,7 @@ import { Container } from "@chakra-ui/react";
 import Searchbar from "./components/Searchbar";
 import axios from "./api/meme-api";
 import ImageList from "./components/ImageList";
+import Footer from "./components/Footer";
 
 class App extends Component {
   state = {
@@ -34,7 +35,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.onFormSubmit(null, 'wholesomememes')
+    this.onFormSubmit(null, "wholesomememes");
   }
 
   render() {
@@ -53,6 +54,8 @@ class App extends Component {
               loading={this.state.loading}
             />
           )}
+
+          <Footer />
         </Container>
       </div>
     );
