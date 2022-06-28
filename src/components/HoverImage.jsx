@@ -1,19 +1,8 @@
 import { Box } from '@chakra-ui/react'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React from 'react'
 import { motion } from "framer-motion";
 
 function HoverImage(props) {
-  const [height, setHeight] = useState(0)
-  const measuredRef = useRef()
-
-    useEffect(() => {
-      measuredRef.current.addEventListener('load', () => {
-        setHeight(measuredRef.current.clientHeight)
-      })
-     
-    }, []);
-
-  console.log(height)
   return (
     <Box
     as={motion.div}
@@ -24,7 +13,7 @@ function HoverImage(props) {
     }}
     whileTap={{ scale: 0.9 }}
   >
-    {<img ref={measuredRef} alt={props.alt} src={props.src} />}
+    {<img  alt={props.alt} src={props.src} />}
   </Box>
   )
 }

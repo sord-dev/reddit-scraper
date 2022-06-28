@@ -11,10 +11,27 @@ class App extends Component {
     loading: true,
   };
 
-  onFormSubmit = (e, searchterm) => {
+  onFormSubmit = async (e, searchterm) => {
     e.preventDefault();
     console.log(`search phrase: ${searchterm}`);
     this.setState({ phrase: searchterm, loading: true });
+
+    try {
+      const options = {
+        method: "GET",
+        url: `/gimme/${searchterm}/25`,
+      };
+      const res = await axios.request(options);
+      this.setState({ images: null });
+      this.setState({
+        images: res.data.memes.filter((img) => img.nsfw !== true),
+        loading: false,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      this.setState({ loading: false });
+    }
 
     const options = {
       method: "GET",
